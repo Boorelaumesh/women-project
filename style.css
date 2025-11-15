@@ -1,0 +1,96 @@
+/* PAGE STRUCTURE */
+.about-page {
+  padding: 40px 6%;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+/* MAIN TITLE */
+.main-heading {
+  font-size: 36px;
+  font-weight: 700;
+  color: #c2185b;
+  margin-bottom: 40px;
+}
+
+/* SECTION HEADINGS */
+.section-heading {
+  font-size: 28px;
+  margin: 50px 0 25px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* WHO WE ARE BOX */
+.who-we-are {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  padding: 25px 30px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+
+.who-we-are p {
+  font-size: 17px;
+  color: #444;
+  line-height: 1.8;
+}
+
+
+/* CARD GRID */
+.card-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* CARD BOX */
+.custom-card {
+  width: 330px;
+  height: 330px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.20);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+}
+
+/* CARD CONTENT */
+.card-content h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #c2185b;
+}
+
+.card-content p {
+  color: #555;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.about-page {
+  padding: 40px 7%;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  background: linear-gradient(135deg, #fdfdfd, #edf2f7);
+  min-height: 100vh;
+   animation: fadebg 1.5s ease-in-out;
+}
+
+@keyframes fadebg {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
