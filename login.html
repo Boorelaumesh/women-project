@@ -230,3 +230,65 @@
   </div>
 </div>
 
+
+
+
+<!-- 
+import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent {
+
+  // For comparing password fields
+  newpassword: string = '';
+  repassword: string = '';
+
+  constructor() {}
+
+  // ================== LOGIN FORM SUBMIT ===================
+  onLogin(loginForm: NgForm) {
+    if (loginForm.invalid) {
+      alert('Please fill out the form correctly.');
+      return;
+    }
+
+    const { email, password } = loginForm.value;
+
+    console.log("Login Data:", loginForm.value);
+
+    // 👉 Your API call here
+    // this.authService.login(email, password).subscribe(...)
+
+    alert('Login Successful!');
+    loginForm.reset();
+  }
+
+  // ================== SIGNUP FORM SUBMIT ==================
+  onRegister(registerForm: NgForm) {
+
+    if (registerForm.invalid || this.newpassword !== this.repassword) {
+      alert('Please fix the errors before submitting.');
+      return;
+    }
+
+    const { username, newpassword, new_email } = registerForm.value;
+
+    console.log("Register Data:", registerForm.value);
+
+    // 👉 Your API call here
+    // this.authService.register({ username, password: newpassword, email: new_email })
+
+    alert('Sign Up Successful!');
+    registerForm.reset();
+  }
+
+  // ================== PASSWORD MATCH CHECK ==================
+  passwordsMatch(): boolean {
+    return this.newpassword === this.repassword;
+  }
+} -->
