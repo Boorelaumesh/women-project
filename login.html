@@ -86,151 +86,157 @@
   <div class="login-html">
 
     <!-- Tabs -->
-    <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
+    <input id="tab-1" type="radio" name="tab" class="sign-in" checked />
     <label for="tab-1" class="tab">Sign In</label>
-
-    <input id="tab-2" type="radio" name="tab" class="sign-up">
+    <input id="tab-2" type="radio" name="tab" class="sign-up" />
     <label for="tab-2" class="tab">Sign Up</label>
 
     <div class="login-form">
 
       <!-- ---------------- SIGN IN FORM ---------------- -->
-      <form #signInForm="ngForm" (ngSubmit)="onSignIn(signInForm)" novalidate>
-        <div class="sign-in-htm">
+      <form #signInForm="ngForm" (ngSubmit)="onSignIn(signInForm)" class="sign-in-htm">
 
-          <!-- EMAIL -->
-          <div class="group">
-            <label class="label">Email:</label>
-            <input type="email" class="input"
-              name="signin_email"
-              ngModel
-              #signin_email="ngModel"
-              required email>
+        <div class="group">
+          <label class="label">Username</label>
+          <input
+            type="text"
+            class="input"
+            name="signinUser"
+            [(ngModel)]="signinData.username"
+            required
+            #signinUser="ngModel"
+          />
 
-            <div class="alert alert-danger" *ngIf="signin_email.touched && signin_email.invalid">
-              <span *ngIf="signin_email.errors?.['required']">Email cannot be blank</span>
-              <span *ngIf="signin_email.errors?.['email']">Please enter a valid email</span>
-            </div>
-          </div>
+          <span *ngIf="signinUser.invalid && signinUser.touched" style="color: #ff8080;">
+            Username is required
+          </span>
+        </div>
 
-          <!-- PASSWORD -->
-          <div class="group">
-            <label class="label">Password:</label>
-            <input type="password" class="input"
-              name="signin_password"
-              ngModel
-              #signin_password="ngModel"
-              required>
+        <div class="group">
+          <label class="label">Password</label>
+          <input
+            type="password"
+            class="input"
+            name="signinPass"
+            [(ngModel)]="signinData.password"
+            required
+            minlength="6"
+            #signinPass="ngModel"
+          />
 
-            <div class="alert alert-danger" *ngIf="signin_password.touched && signin_password.invalid">
-              <span>Please enter the password</span>
-            </div>
-          </div>
+          <span *ngIf="signinPass.invalid && signinPass.touched" style="color:#ff8080;">
+            Password must be at least 6 characters
+          </span>
+        </div>
 
-          <!-- Keep me signed in -->
-          <div class="group group-inline">
-            <input id="keep-signed-in" type="checkbox" class="check" checked>
-            <label for="keep-signed-in" class="keep-signed">
-              <span class="icon"></span> Keep me Signed in
-            </label>
-          </div>
+        <div class="group">
+          <input id="check" type="checkbox" class="check" checked />
+          <label for="check">
+            <span class="icon"></span> Keep me Signed in
+          </label>
+        </div>
 
-          <!-- SIGN IN BUTTON -->
-          <div class="group">
-            <button class="button" type="submit"
-              [disabled]="signin_email.invalid || signin_password.invalid">
-              Sign In
-            </button>
-          </div>
+        <div class="group">
+          <button
+            class="button"
+            type="submit"
+            [disabled]="signInForm.invalid"
+          >
+            Sign In
+          </button>
+        </div>
 
-          <div class="hr"></div>
-          <div class="foot-lnk"><a href="#">Forgot Password?</a></div>
-
+        <div class="hr"></div>
+        <div class="foot-lnk">
+          <a href="#forgot">Forgot Password?</a>
         </div>
       </form>
-
 
       <!-- ---------------- SIGN UP FORM ---------------- -->
-      <form #signUpForm="ngForm" (ngSubmit)="onSignUp(signUpForm)" novalidate>
-        <div class="sign-up-htm">
+      <form #signUpForm="ngForm" (ngSubmit)="onSignUp(signUpForm)" class="sign-up-htm">
 
-          <!-- USERNAME -->
-          <div class="group">
-            <label class="label">Username</label>
-            <input type="text" class="input"
-              name="username"
-              ngModel
-              #username="ngModel"
-              required>
+        <div class="group">
+          <label class="label">Username</label>
+          <input
+            type="text"
+            class="input"
+            name="signupUser"
+            [(ngModel)]="signupData.username"
+            required
+            #signupUser="ngModel"
+          />
 
-            <div class="alert alert-danger" *ngIf="username.touched && username.invalid">
-              <span>Provide the username</span>
-            </div>
-          </div>
+          <span *ngIf="signupUser.invalid && signupUser.touched" style="color:#ff8080;">
+            Username is required
+          </span>
+        </div>
 
-          <!-- PASSWORD -->
-          <div class="group">
-            <label class="label">Password</label>
-            <input type="password" class="input"
-              name="newpassword"
-              ngModel
-              #newpassword="ngModel"
-              required minlength="8"
-              pattern="^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$">
+        <div class="group">
+          <label class="label">Password</label>
+          <input
+            type="password"
+            class="input"
+            name="signupPass"
+            [(ngModel)]="signupData.password"
+            required
+            minlength="6"
+            #signupPass="ngModel"
+          />
 
-            <div class="alert alert-danger" *ngIf="newpassword.touched && newpassword.invalid">
-              <span *ngIf="newpassword.errors?.['required']">Enter the password</span>
-              <span *ngIf="newpassword.errors?.['minlength']">Minimum 8 characters</span>
-              <span *ngIf="newpassword.errors?.['pattern']">Must contain a letter, number & special character</span>
-            </div>
-          </div>
+          <span *ngIf="signupPass.invalid && signupPass.touched" style="color:#ff8080;">
+            Password must be at least 6 characters
+          </span>
+        </div>
 
-          <!-- REPEAT PASSWORD -->
-          <div class="group">
-            <label class="label">Repeat Password</label>
-            <input type="password" class="input"
-              name="repassword"
-              ngModel
-              #repassword="ngModel"
-              required
-              (ngModelChange)="checkPasswords(newpassword.value, repassword.value)">
+        <div class="group">
+          <label class="label">Repeat Password</label>
+          <input
+            type="password"
+            class="input"
+            name="signupRepeat"
+            [(ngModel)]="signupData.repeatPassword"
+            required
+            [pattern]="signupData.password"
+            #signupRepeat="ngModel"
+          />
 
-            <div class="alert alert-danger" *ngIf="repassword.touched && passwordMismatch">
-              <span>Password incorrect</span>
-            </div>
-          </div>
+          <span *ngIf="signupRepeat.invalid && signupRepeat.touched" style="color:#ff8080;">
+            Passwords must match
+          </span>
+        </div>
 
-          <!-- EMAIL -->
-          <div class="group">
-            <label class="label">Email Address</label>
-            <input type="email" class="input"
-              name="new_email"
-              ngModel
-              #new_email="ngModel"
-              required email>
+        <div class="group">
+          <label class="label">Email Address</label>
+          <input
+            type="email"
+            class="input"
+            name="signupEmail"
+            [(ngModel)]="signupData.email"
+            required
+            email
+            #signupEmail="ngModel"
+          />
 
-            <div class="alert alert-danger" *ngIf="new_email.touched && new_email.invalid">
-              <span *ngIf="new_email.errors?.['required']">Email cannot be blank</span>
-              <span *ngIf="new_email.errors?.['email']">Please enter valid email</span>
-            </div>
-          </div>
+          <span *ngIf="signupEmail.invalid && signupEmail.touched" style="color:#ff8080;">
+            Enter a valid email
+          </span>
+        </div>
 
-          <!-- SIGN UP BUTTON -->
-          <div class="group">
-            <button type="submit" class="button"
-              [disabled]="username.invalid || newpassword.invalid || repassword.invalid || new_email.invalid || passwordMismatch">
-              Sign Up
-            </button>
-          </div>
+        <div class="group">
+          <button
+            class="button"
+            type="submit"
+            [disabled]="signUpForm.invalid"
+          >
+            Sign Up
+          </button>
+        </div>
 
-          <div class="hr"></div>
-          <div class="foot-lnk">
-            <label for="tab-1">Already Member?</label>
-          </div>
-
+        <div class="hr"></div>
+        <div class="foot-lnk">
+          <label for="tab-1">Already Member?</label>
         </div>
       </form>
-
     </div>
   </div>
 </div>
@@ -238,7 +244,6 @@
 
 
 <!-- import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -247,36 +252,31 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent {
 
-  passwordMismatch = false;
+  // Sign In Model
+  signinData = {
+    username: '',
+    password: ''
+  };
 
-  // ----------- CHECK PASSWORD MATCH -----------
-  checkPasswords(pass: string, repass: string) {
-    this.passwordMismatch = pass !== repass;
+  // Sign Up Model
+  signupData = {
+    username: '',
+    password: '',
+    repeatPassword: '',
+    email: ''
+  };
+
+  onSignIn(form: any) {
+    if (form.valid) {
+      console.log("SIGN IN DATA:", this.signinData);
+      alert("Sign In Successful!");
+    }
   }
 
-  // ----------- SIGN IN SUBMIT -----------
-  onSignIn(form: NgForm) {
-    if (form.invalid) return;
-
-    const email = form.value.signin_email;
-    const password = form.value.signin_password;
-
-    console.log("Sign In:", email, password);
-    alert("Sign-In Successful!");
+  onSignUp(form: any) {
+    if (form.valid) {
+      console.log("SIGN UP DATA:", this.signupData);
+      alert("Sign Up Successful!");
+    }
   }
-
-  // ----------- SIGN UP SUBMIT -----------
-  onSignUp(form: NgForm) {
-    if (form.invalid || this.passwordMismatch) return;
-
-    const data = {
-      username: form.value.username,
-      email: form.value.new_email,
-      password: form.value.newpassword
-    };
-
-    console.log("Sign Up:", data);
-    alert("Account Created Successfully!");
-  }
-
 } -->
