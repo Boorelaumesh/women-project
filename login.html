@@ -94,125 +94,131 @@
 
     <div class="login-form">
 
-      <!-- ================= SIGN IN FORM ================= -->
-      <form #loginForm="ngForm" novalidate class="login-form">
-
+      <!-- ---------------- SIGN IN FORM ---------------- -->
+      <form #signInForm="ngForm" (ngSubmit)="onSignIn(signInForm)" novalidate>
         <div class="sign-in-htm">
 
-          <!-- Email -->
+          <!-- EMAIL -->
           <div class="group">
             <label class="label">Email:</label>
-            <input type="email" name="email"
-                   class="input"
-                   ngModel #email="ngModel"
-                   required email>
+            <input type="email" class="input"
+              name="signin_email"
+              ngModel
+              #signin_email="ngModel"
+              required email>
 
-            <div class="alert" *ngIf="email.touched && email.invalid">
-              <span *ngIf="email.errors?.['required']">Email cannot be blank</span>
-              <span *ngIf="email.errors?.['email']">Enter a valid email</span>
+            <div class="alert alert-danger" *ngIf="signin_email.touched && signin_email.invalid">
+              <span *ngIf="signin_email.errors?.['required']">Email cannot be blank</span>
+              <span *ngIf="signin_email.errors?.['email']">Please enter a valid email</span>
             </div>
           </div>
 
-          <!-- Password -->
+          <!-- PASSWORD -->
           <div class="group">
             <label class="label">Password:</label>
-            <input type="password" name="password"
-                   class="input"
-                   ngModel #password="ngModel"
-                   required minlength="6">
+            <input type="password" class="input"
+              name="signin_password"
+              ngModel
+              #signin_password="ngModel"
+              required>
 
-            <div class="alert" *ngIf="password.touched && password.invalid">
-              <span *ngIf="password.errors?.['required']">Please enter the password</span>
+            <div class="alert alert-danger" *ngIf="signin_password.touched && signin_password.invalid">
+              <span>Please enter the password</span>
             </div>
           </div>
 
-          <!-- Remember me -->
+          <!-- Keep me signed in -->
           <div class="group group-inline">
             <input id="keep-signed-in" type="checkbox" class="check" checked>
-            <label for="keep-signed-in" class="keep-signed"><span class="icon"></span> Keep me Signed in</label>
+            <label for="keep-signed-in" class="keep-signed">
+              <span class="icon"></span> Keep me Signed in
+            </label>
           </div>
 
-          <!-- Submit -->
+          <!-- SIGN IN BUTTON -->
           <div class="group">
-            <button class="button" [disabled]="loginForm.invalid">Sign In</button>
+            <button class="button" type="submit"
+              [disabled]="signin_email.invalid || signin_password.invalid">
+              Sign In
+            </button>
           </div>
 
           <div class="hr"></div>
-          <div class="foot-lnk">
-            <a href="#forgot">Forgot Password?</a>
-          </div>
-        </div>
+          <div class="foot-lnk"><a href="#">Forgot Password?</a></div>
 
+        </div>
       </form>
 
-      <!-- ================= SIGN UP FORM ================= -->
-      <form #registerForm="ngForm" novalidate>
 
+      <!-- ---------------- SIGN UP FORM ---------------- -->
+      <form #signUpForm="ngForm" (ngSubmit)="onSignUp(signUpForm)" novalidate>
         <div class="sign-up-htm">
 
-          <!-- Username -->
+          <!-- USERNAME -->
           <div class="group">
             <label class="label">Username</label>
-            <input type="text" name="username"
-                   class="input"
-                   ngModel #username="ngModel"
-                   required>
+            <input type="text" class="input"
+              name="username"
+              ngModel
+              #username="ngModel"
+              required>
 
-            <div class="alert" *ngIf="username.touched && username.invalid">
+            <div class="alert alert-danger" *ngIf="username.touched && username.invalid">
               <span>Provide the username</span>
             </div>
           </div>
 
-          <!-- New Password -->
+          <!-- PASSWORD -->
           <div class="group">
             <label class="label">Password</label>
+            <input type="password" class="input"
+              name="newpassword"
+              ngModel
+              #newpassword="ngModel"
+              required minlength="8"
+              pattern="^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$">
 
-            <input type="password" name="newpassword"
-                   class="input"
-                   ngModel #newpassword="ngModel"
-                   required minlength="8"
-                   pattern="^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&]).{8,}$">
-
-            <div class="alert" *ngIf="newpassword.touched && newpassword.invalid">
+            <div class="alert alert-danger" *ngIf="newpassword.touched && newpassword.invalid">
               <span *ngIf="newpassword.errors?.['required']">Enter the password</span>
               <span *ngIf="newpassword.errors?.['minlength']">Minimum 8 characters</span>
               <span *ngIf="newpassword.errors?.['pattern']">Must contain a letter, number & special character</span>
             </div>
           </div>
 
-          <!-- Repeat Password -->
+          <!-- REPEAT PASSWORD -->
           <div class="group">
             <label class="label">Repeat Password</label>
+            <input type="password" class="input"
+              name="repassword"
+              ngModel
+              #repassword="ngModel"
+              required
+              (ngModelChange)="checkPasswords(newpassword.value, repassword.value)">
 
-            <input type="password" name="repassword"
-                   class="input"
-                   ngModel #repassword="ngModel"
-                   required>
-
-            <div class="alert" *ngIf="repassword.touched">
-              <span *ngIf="repassword.value !== newpassword.value">Password incorrect</span>
+            <div class="alert alert-danger" *ngIf="repassword.touched && passwordMismatch">
+              <span>Password incorrect</span>
             </div>
           </div>
 
-          <!-- Email -->
+          <!-- EMAIL -->
           <div class="group">
             <label class="label">Email Address</label>
+            <input type="email" class="input"
+              name="new_email"
+              ngModel
+              #new_email="ngModel"
+              required email>
 
-            <input type="email" name="new_email"
-                   class="input"
-                   ngModel #new_email="ngModel"
-                   required email>
-
-            <div class="alert" *ngIf="new_email.touched && new_email.invalid">
+            <div class="alert alert-danger" *ngIf="new_email.touched && new_email.invalid">
               <span *ngIf="new_email.errors?.['required']">Email cannot be blank</span>
-              <span *ngIf="new_email.errors?.['email']">Enter valid email</span>
+              <span *ngIf="new_email.errors?.['email']">Please enter valid email</span>
             </div>
           </div>
 
-          <!-- Submit Button -->
+          <!-- SIGN UP BUTTON -->
           <div class="group">
             <button type="submit" class="button"
-                    [disabled]="registerForm.invalid || newpassword.value !== repassword.value">
+              [disabled]="username.invalid || newpassword.invalid || repassword.invalid || new_email.invalid || passwordMismatch">
               Sign Up
             </button>
           </div>
@@ -223,7 +229,6 @@
           </div>
 
         </div>
-
       </form>
 
     </div>
@@ -232,9 +237,7 @@
 
 
 
-
-<!-- 
-import { Component } from '@angular/core';
+<!-- import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -244,51 +247,36 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent {
 
-  // For comparing password fields
-  newpassword: string = '';
-  repassword: string = '';
+  passwordMismatch = false;
 
-  constructor() {}
-
-  // ================== LOGIN FORM SUBMIT ===================
-  onLogin(loginForm: NgForm) {
-    if (loginForm.invalid) {
-      alert('Please fill out the form correctly.');
-      return;
-    }
-
-    const { email, password } = loginForm.value;
-
-    console.log("Login Data:", loginForm.value);
-
-    // 👉 Your API call here
-    // this.authService.login(email, password).subscribe(...)
-
-    alert('Login Successful!');
-    loginForm.reset();
+  // ----------- CHECK PASSWORD MATCH -----------
+  checkPasswords(pass: string, repass: string) {
+    this.passwordMismatch = pass !== repass;
   }
 
-  // ================== SIGNUP FORM SUBMIT ==================
-  onRegister(registerForm: NgForm) {
+  // ----------- SIGN IN SUBMIT -----------
+  onSignIn(form: NgForm) {
+    if (form.invalid) return;
 
-    if (registerForm.invalid || this.newpassword !== this.repassword) {
-      alert('Please fix the errors before submitting.');
-      return;
-    }
+    const email = form.value.signin_email;
+    const password = form.value.signin_password;
 
-    const { username, newpassword, new_email } = registerForm.value;
-
-    console.log("Register Data:", registerForm.value);
-
-    // 👉 Your API call here
-    // this.authService.register({ username, password: newpassword, email: new_email })
-
-    alert('Sign Up Successful!');
-    registerForm.reset();
+    console.log("Sign In:", email, password);
+    alert("Sign-In Successful!");
   }
 
-  // ================== PASSWORD MATCH CHECK ==================
-  passwordsMatch(): boolean {
-    return this.newpassword === this.repassword;
+  // ----------- SIGN UP SUBMIT -----------
+  onSignUp(form: NgForm) {
+    if (form.invalid || this.passwordMismatch) return;
+
+    const data = {
+      username: form.value.username,
+      email: form.value.new_email,
+      password: form.value.newpassword
+    };
+
+    console.log("Sign Up:", data);
+    alert("Account Created Successfully!");
   }
+
 } -->
