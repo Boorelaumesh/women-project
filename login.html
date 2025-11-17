@@ -1,0 +1,83 @@
+<div class="login-wrap">
+  <div class="login-html">
+    <!-- Sign in/up Tabs -->
+    <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
+    <label for="tab-1" class="tab">Sign In</label>
+    <input id="tab-2" type="radio" name="tab" class="sign-up">
+    <label for="tab-2" class="tab">Sign Up</label>
+    <div class="login-form">
+      <!-- Sign In Pane -->
+      <form #loginForm="ngForm"  novalidate class="login-form">
+      <div class="sign-in-htm">
+        <div class="group">
+           <label for="email" class="label">Email:</label>
+        <input #email="ngModel" ngModel name="email"  type="email" class="input" required email>
+          <div class="alert alert-danger" *ngIf="email.touched && email.invalid">
+        <span *ngIf="email.errors?.['required']">Email cannot be blank</span>
+        <span *ngIf="email.errors?.['email']">please Enter vaild email</span>
+        </div>  
+        </div>
+        <div class="group">
+           <label for="passsword" class="label">Password:</label>
+        <input #password="ngModel" name="passsword" ngModel  type="password" class="input " required>
+        <div class="alert alert-danger" *ngIf="password.touched">
+        <span *ngIf="password.errors?.['required']">Please Enter the password</span>
+        </div>  
+        </div>
+        <div class="group group-inline">
+          <input id="keep-signed-in" type="checkbox" class="check" checked>
+          <label for="keep-signed-in" class="keep-signed"> <span class="icon"></span> Keep me Signed in</label>
+        </div>
+        <div class="group">
+          <button class="b">Sign In</button>
+        </div>
+        <div class="hr"></div>
+        <div class="foot-lnk">
+          <a href="#forgot">Forgot Password?</a>
+        </div>
+      </div>
+    </form>
+      <!-- Sign Up Pane -->
+      <div class="sign-up-htm">
+        <div class="group">
+          <label for="username" class="label">Username</label>
+          <input id="username" type="text" class="input" autocomplete="username" ngModel #username="ngModel" required>
+           <div class="alert alert-danger" *ngIf="username.touched">
+            <span *ngIf="username.errors?.['required']">Provide the username</span>
+            <!-- <span *ngIf="email.errors?.['email']">please Enter vaild email</span> -->
+        </div>  
+
+        </div>
+        <div class="group">
+          <label for="newpassword" class="label">Password</label>
+          <input id="newpassword" type="password" class="input" autocomplete="new-password" ngModel #newpassword="ngModel" required minlength="8" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+          <div class="alert alert-danger" *ngIf="newpassword.touched && newpassword.invalid">
+            <span *ngIf="newpassword.errors?.['required']">Enter the password</span>
+            <span *ngIf="!newpassword.errors?.['required'] && !newpassword.errors?.['minlength'] && newpassword.errors?.['pattern']">Must contain at least a letter, a number, and a special character</span>
+            <span *ngIf="!newpassword.errors?.['required'] && newpassword.errors?.['minlength']">Enter minum 8 charcters</span>
+        </div>  
+        </div>
+        <div class="group">
+        <label for="repassword" class="label">Repeat Password</label>
+         <input id="repassword" type="password" class="input" autocomplete="new-password" ngModel #repassword="ngModel" required minlength="8" pattern="new-password.value">
+         <div class="alert alert-danger" *ngIf="repassword.touched && repassword.invalid"></div>
+         <span *ngIf="repassword.value != newpassword.value">Password incorrect</span>
+        </div>
+        <div class="group">
+            <label for="new_email" class="label">Email Address</label>
+        <input #new_email="ngModel" ngModel name="new_email"  type="email" class="input" required email>
+          <div class="alert alert-danger" *ngIf="new_email.touched && new_email.invalid">
+        <span *ngIf="new_email.errors?.['required']">Email cannot be blank</span>
+        <span *ngIf="new_email.errors?.['email']">please Enter vaild email</span>
+        </div>
+        <div class="group">
+          <input type="submit" class="button" value="Sign Up">
+        </div>
+        <div class="hr"></div>
+        <div class="foot-lnk">
+          <label for="tab-1">Already Member?</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
